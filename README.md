@@ -5,15 +5,15 @@
 
 <hr>
 
-#### <div style="color:orange;"> Working now only with nwidart/laravel-modules & vite</div>
+#### <div style="color:#FFA500FF;"> Working now only with nwidart/laravel-modules & vite</div>
 
 <div style="color: cadetblue"> To install and test:</div>
 <ul>
-	<li> download from git to your projects <b style="color: orange">/Modules</b> folder. </li>
+	<li> download from git to your projects <b style="color: #FFA500FF">/Modules</b> folder. </li>
 	<li> inside you will find Makefile - you have there 2 options:
 		<ul>
-			<li> If you work on <span style="color:lightblue">local</span> with <b>ddev</b>, run <b style="color:lightgreen">make setup-ddev</b>  </li>
-			<li> Another case, on <span style="color:lightblue">server</span> <b style="color:lightgreen">make setup</b> </li>
+			<li> If you work on <span style="color:#ADD8E6FF">local</span> with <b>ddev</b>, run <b style="color:#90EE90FF">make setup-ddev</b>  </li>
+			<li> Another case, on <span style="color:#ADD8E6FF">server</span> <b style="color:#90EE90FF">make setup</b> </li>
 		</ul>
 	</li>
 	<li>In case, if something will not work (suppose not, but) Run commands Manually:
