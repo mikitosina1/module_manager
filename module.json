@@ -1,0 +1,14 @@
+{
+	"id": "module-manager",
+	"title": "Module Manager M.Z.",
+	"name": "ModuleManager",
+	"alias": "modulemanager",
+	"description": "Widget for UI to control module",
+	"keywords": ["module", "manager", "widget", "control"],
+	"priority": 0,
+	"providers": [
+		"Modules\\ModuleManager\\App\\Providers\\ModuleManagerServiceProvider"
+	],
+	"files": [],
+	"version": "0.0.1"
+}

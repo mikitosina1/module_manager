@@ -1,0 +1,28 @@
+{
+	"name": "nwidart/modulemanager",
+	"description": "Widget for UI to control module",
+	"authors": [
+		{
+			"name": "Mykyta Zarichnyi",
+			"email": "mikitosina27@gmail.com"
+		}
+	],
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Modules\\ModuleManager\\Providers\\ModuleManagerServiceProvider"
+			],
+			"aliases": {}
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"Modules\\ModuleManager\\": "/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Modules\\ModuleManager\\Tests\\": "tests/"
+		}
+	}
+}
