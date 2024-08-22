@@ -57,14 +57,10 @@ class ModuleManagerServiceProvider extends ServiceProvider
 	 */
 	public function registerTranslations(): void
 	{
-		$langPath = resource_path('lang/modules/'.$this->moduleNameLower);
+		$moduleLangPath = module_path($this->moduleName, 'lang');
 
-		if (is_dir($langPath)) {
-			$this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-			$this->loadJsonTranslationsFrom($langPath);
-		} else {
-			$this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-			$this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
+		if (is_dir($moduleLangPath)) {
+			$this->loadTranslationsFrom($moduleLangPath, $this->moduleNameLower);
 		}
 	}
 

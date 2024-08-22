@@ -7,6 +7,7 @@
 namespace Modules\ModuleManager\App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Lang;
 use Nwidart\Modules\Facades\Module;
 
 class EnableModule extends Command
@@ -35,9 +36,9 @@ class EnableModule extends Command
 
 		if ($module) {
 			$module->enable();
-			$this->info("Module {$moduleName} has been enabled.");
+			$this->info(Lang::get('modulemanager::module_manager_lang.module_enabled', ['module' => $moduleName]));
 		} else {
-			$this->error("Module {$moduleName} not found.");
+			$this->error(Lang::get('modulemanager::module_manager_lang.module_not_found', ['module' => $moduleName]));
 		}
 	}
 }

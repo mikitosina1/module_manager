@@ -5,6 +5,7 @@ namespace Modules\ModuleManager\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Nwidart\Modules\Facades\Module;
 
 class ModuleManagerController extends Controller
@@ -16,9 +17,9 @@ class ModuleManagerController extends Controller
 
 		if ($module) {
 			$module->enable();
-			return response()->json(['message' => "Module {$moduleName} has been enabled."], 200);
+			return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_enabled', ['module' => $moduleName])], 200);
 		} else {
-			return response()->json(['message' => "Module {$moduleName} not found."], 404);
+			return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_not_found', ['module' => $moduleName])], 404);
 		}
 	}
 
@@ -30,12 +31,12 @@ class ModuleManagerController extends Controller
 
 			if ($module) {
 				$module->disable();
-				return response()->json(['message' => "Module {$moduleName} has been disabled."], 200);
+				return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_disabled', ['module' => $moduleName])], 200);
 			} else {
-				return response()->json(['message' => "Module {$moduleName} not found."], 404);
+				return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_not_found', ['module' => $moduleName])], 404);
 			}
 		} else {
-			return response()->json(['message' => "Module {$moduleName} can't be disabled."], 200);
+			return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_cant_disabled', ['module' => $moduleName])], 200);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 @vite(\Nwidart\Modules\Module::getAssets()[1])
 <div class="cloud">
 	<div class="dark:bg-gray-800 shadow sm:rounded-lg mt-8 module-manager-block">
-		<h1 class="dark:text-gray-300 header">@lang('dashboard.manage_modules'):</h1>
+		<h1 class="dark:text-gray-300 header">@lang('modulemanager::module_manager_lang.manage_modules'):</h1>
 		@if(!empty(isset($modules)))
 			<ul>
 				@foreach($modules as $module)
