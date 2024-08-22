@@ -25,13 +25,17 @@ class ModuleManagerController extends Controller
 	public function disable(Request $request): JsonResponse
 	{
 		$moduleName = $request->input('module');
-		$module = Module::find($moduleName);
+		if ($moduleName != 'ModuleManager') {
+			$module = Module::find($moduleName);
 
-		if ($module) {
-			$module->disable();
-			return response()->json(['message' => "Module {$moduleName} has been disabled."], 200);
+			if ($module) {
+				$module->disable();
+				return response()->json(['message' => "Module {$moduleName} has been disabled."], 200);
+			} else {
+				return response()->json(['message' => "Module {$moduleName} not found."], 404);
+			}
 		} else {
-			return response()->json(['message' => "Module {$moduleName} not found."], 404);
+			return response()->json(['message' => "Module {$moduleName} can't be disabled."], 200);
 		}
 	}
 }

@@ -1,5 +1,13 @@
-.content-block {
+.module-manager-block {
+	display: flex;
+	flex-direction: column;
+	width: 25vw;
+	border: 1px solid gray;
 	padding: 1em;
+}
+
+h1.header {
+	margin-bottom: 1em;
 }
 
 li > h4 {
