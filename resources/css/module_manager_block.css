@@ -81,3 +81,7 @@ input:checked + .slider {
 input:checked + .slider:before {
 	transform: translateX(12px);
 }
+
+.delete-module {
+	margin-left: 10px;
+}

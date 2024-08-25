@@ -15,6 +15,8 @@
 									{{ $module->isEnabled() ? 'checked' : '' }}>
 								<span class="slider"></span>
 							</label>
+							<a href="javascript:void(0);" class="delete-module dark:text-gray-300" data-module-name="{{ $module->getName() }}">@lang('modulemanager::module_manager_lang.delete_module_btn')</a>
+
 						</li>
 					@endif
 				@endforeach

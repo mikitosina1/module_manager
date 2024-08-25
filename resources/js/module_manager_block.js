@@ -24,3 +24,31 @@ window.toggleModule = function (moduleName, action) {
 		})
 		.catch(error => console.error('Error:', error));
 }
+
+window.deleteModule = function (moduleName) {
+	fetch('/module/delete', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+		},
+		body: JSON.stringify({ module: moduleName })
+	})
+		.then(response => response.json())
+		.then(data => {
+			alert(data.message);
+			location.reload();
+		})
+		.catch(error => console.error('Error:', error));
+}
+
+// event listener for delete
+document.addEventListener('DOMContentLoaded', function () {
+	document.querySelectorAll('.delete-module').forEach(button => {
+		button.addEventListener('click', function (e) {
+			e.preventDefault();
+			const moduleName = this.getAttribute('data-module-name');
+			window.deleteModule(moduleName);
+		});
+	});
+});
