@@ -1,4 +1,4 @@
-## Module Manager by <span style="color:#008066;">@mikitosina</span>
+## Module Manager by <span style="color:#008066;">@mikitosina1</span>
 #### Widget UI for dashboard, to manage modules in Laravel 10<br><hr>
 
 ![image](https://github.com/user-attachments/assets/f640f944-bc35-4fe9-acc3-13a931be421e)
