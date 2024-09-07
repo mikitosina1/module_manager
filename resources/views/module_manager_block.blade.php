@@ -1,5 +1,15 @@
-@vite(\Nwidart\Modules\Module::getAssets()[0])
-@vite(\Nwidart\Modules\Module::getAssets()[1])
+@php
+	$assets = \Nwidart\Modules\Module::getAssets();
+
+	$moduleAssets = array_filter($assets, function ($asset) {
+		return strpos($asset, 'Modules/ModuleManager') !== false;
+	});
+@endphp
+
+@foreach ($moduleAssets as $asset)
+	@vite($asset)
+@endforeach
+
 <div class="cloud">
 	<div class="dark:bg-gray-800 shadow sm:rounded-lg mt-8 module-manager-block">
 		<h1 class="dark:text-gray-300 header">@lang('modulemanager::module_manager_lang.manage_modules'):</h1>
