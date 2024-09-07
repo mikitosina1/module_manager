@@ -32,6 +32,7 @@ class ModuleManagerController extends Controller
 
 			if ($module) {
 				$module->disable();
+				$this->clearCache();
 				return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_disabled', ['module' => $moduleName])], 200);
 			} else {
 				return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_not_found', ['module' => $moduleName])], 404);
@@ -52,11 +53,7 @@ class ModuleManagerController extends Controller
 
 		try {
 			$this->deleteDirectory($modulePath);
-			// Clear Cache
-			Artisan::call('config:clear');
-			Artisan::call('cache:clear');
-			Artisan::call('config:cache');
-			Artisan::call('optimize:clear');
+			$this->clearCache();
 
 			// composer dump-autoload
 			exec('/usr/local/bin/composer dump-autoload', $output, $return_var);
@@ -84,6 +81,15 @@ class ModuleManagerController extends Controller
 		}
 
 		rmdir($dir);
+	}
+
+	public function clearCache(): void
+	{
+		// Clear Cache
+		Artisan::call('config:clear');
+		Artisan::call('cache:clear');
+		Artisan::call('config:cache');
+		Artisan::call('optimize:clear');
 	}
 
 }
