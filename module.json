@@ -4,7 +4,12 @@
 	"name": "ModuleManager",
 	"alias": "modulemanager",
 	"description": "Widget for UI to control module",
-	"keywords": ["module", "manager", "widget", "control"],
+	"keywords": [
+		"module",
+		"manager",
+		"widget",
+		"control"
+	],
 	"priority": 0,
 	"providers": [
 		"Modules\\ModuleManager\\App\\Providers\\ModuleManagerServiceProvider"

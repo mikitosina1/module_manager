@@ -7,7 +7,13 @@
 			"email": "mikitosina27@gmail.com"
 		}
 	],
-	"keywords": ["laravel", "module", "module manager", "mikitosina1", "ModuleManager"],
+	"keywords": [
+		"laravel",
+		"module",
+		"module manager",
+		"mikitosina1",
+		"ModuleManager"
+	],
 	"extra": {
 		"laravel": {
 			"providers": [

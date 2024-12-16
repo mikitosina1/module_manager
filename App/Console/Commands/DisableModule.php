@@ -4,6 +4,7 @@
  * ---------------------------------------------------------------------------------------------------------------------
  * Disables module with console command
  */
+
 namespace Modules\ModuleManager\App\Console\Commands;
 
 use Illuminate\Console\Command;

@@ -32,7 +32,7 @@ window.deleteModule = function (moduleName) {
 			'Content-Type': 'application/json',
 			'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 		},
-		body: JSON.stringify({ module: moduleName })
+		body: JSON.stringify({module: moduleName})
 	})
 		.then(response => response.json())
 		.then(data => {

@@ -3,6 +3,7 @@
 namespace Modules\ModuleManager\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -58,11 +59,11 @@ class ModuleManagerController extends Controller
 			// composer dump-autoload
 			exec('/usr/local/bin/composer dump-autoload', $output, $return_var);
 			if ($return_var !== 0) {
-				throw new \Exception('Failed to execute composer dump-autoload: ' . implode("\n", $output));
+				throw new Exception('Failed to execute composer dump-autoload: ' . implode("\n", $output));
 			}
 
 			return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.module_deleted', ['module' => $moduleName])], 200);
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			return response()->json(['message' => Lang::get('modulemanager::module_manager_lang.problem_delete_module', ['module' => $moduleName])], 500);
 		}
 	}
