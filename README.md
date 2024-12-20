@@ -11,6 +11,21 @@
 <div style="color: cadetblue"> To install and test:</div>
 <ul>
 	<li> download from git to your projects <b style="color: #FFA500FF">/Modules</b> folder. </li>
+	<li> change/create file in root of project 'vite.config.js'
+
+```js
+	const allPaths = await collectModuleAssetsPaths(paths, 'Modules');
+
+	return defineConfig({
+		plugins: [
+			laravel({
+				input: allPaths,
+				refresh: true,
+			})
+		]
+	});
+``` 
+</li>
 	<li> inside you will find Makefile - you have there 2 options:
 		<ul>
 			<li> If you work on <span style="color:#ADD8E6FF">local</span> with <b>ddev</b>, run <b style="color:#90EE90FF">make setup-ddev</b>  </li>
@@ -24,3 +39,35 @@
 		</ul>
 	</li>
 </ul>
+
+## Full root vite.config.js example:
+```js
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import collectModuleAssetsPaths from './vite-module-loader.js';
+
+async function getConfig() {
+	const paths = [
+		// css
+		'resources/css/app.css',
+        //...
+
+		// js
+		'resources/js/app.js',
+        //...
+	];
+	const allPaths = await collectModuleAssetsPaths(paths, 'Modules');
+
+	return defineConfig({
+		plugins: [
+			laravel({
+				input: allPaths,
+				refresh: true,
+			})
+		]
+	});
+}
+
+export default getConfig();
+
+```
