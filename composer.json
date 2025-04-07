@@ -28,12 +28,7 @@
 		"laravel/ui": "^4.5",
 		"nwidart/laravel-modules": "^10.0"
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/mikitosina1/BaseModule.git"
-		}
-	],
+	"repositories": [],
 	"autoload": {
 		"psr-4": {
 			"Modules\\ModuleManager\\": "/"
