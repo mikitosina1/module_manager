@@ -7,7 +7,6 @@ window.$ = $;
 
 window.toggleModule = function (moduleName, action) {
 	const url = action === 'enable' ? '/module/enable' : '/module/disable';
-	console.log(url);
 
 	fetch(url, {
 		method: 'POST',
