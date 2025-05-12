@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
 	/**
-	 * The module namespace to assume when generating URLs to actions.
+	 * The module namespace to assume it when generating URLs to actions.
 	 */
 	protected string $moduleNamespace = 'Modules\ModuleManager\App\Http\Controllers';
 
 	/**
 	 * Called before routes are registered.
 	 *
-	 * Register any model bindings or pattern based filters.
+	 * Register any model bindings or pattern-based filters.
 	 */
 	public function boot(): void
 	{
