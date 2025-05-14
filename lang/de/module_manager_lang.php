@@ -11,4 +11,5 @@ return [
 	'problem_delete_module' => 'Das :Modul kann nicht gelöscht werden.',
 	'module_deleted' => 'Das Modul :module gelöscht.',
 	'delete_module_btn' => 'Löschen',
+	'support_chat_admin_actions' => 'Aktivitäten',
 ];

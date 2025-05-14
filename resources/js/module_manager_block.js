@@ -51,3 +51,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 });
+document.addEventListener('DOMContentLoaded', function() {
+	const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+	dropdownToggles.forEach(toggle => {
+		toggle.addEventListener('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			document.querySelectorAll('.dropdown-menu').forEach(menu => {
+				menu.style.display = 'none';
+			});
+		});
+	});
+
+	// Закрываем меню при клике вне элемента
+	document.addEventListener('click', function(e) {
+		if (!e.target.closest('.dropdown')) {
+			document.querySelectorAll('.dropdown-menu').forEach(menu => {
+				menu.style.display = 'none';
+			});
+		}
+	});
+});
