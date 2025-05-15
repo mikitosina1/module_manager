@@ -25,6 +25,7 @@
 		]
 	});
 ``` 
+
 </li>
 	<li> inside you will find Makefile - you have there 2 options:
 		<ul>
@@ -41,6 +42,7 @@
 </ul>
 
 ## Full root vite.config.js example:
+
 ```js
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';

@@ -21,7 +21,7 @@
 						<div class="module-item">
 							<div class="module-row-main">
 								<h4 class="dark:text-gray-300 module-header"
-								   title="{{ $module->getName() }}">{{ $module->getName() }}</h4>
+									title="{{ $module->getName() }}">{{ $module->getName() }}</h4>
 								<label class="switch">
 									<input type="checkbox"
 										   onchange="toggleModule('{{ $module->getName() }}',
