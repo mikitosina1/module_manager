@@ -6,7 +6,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.$ = $;
 
 window.toggleModule = function (moduleName, action) {
-	const url = action === 'enable' ? '/module/enable' : '/module/disable';
+	const url = action === 'enable' ? '/admin/module/enable' : '/admin/module/disable';
 
 	fetch(url, {
 		method: 'POST',
@@ -25,7 +25,7 @@ window.toggleModule = function (moduleName, action) {
 }
 
 window.deleteModule = function (moduleName) {
-	fetch('/module/delete', {
+	fetch('/admin/module/delete', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	// Закрываем меню при клике вне элемента
 	document.addEventListener('click', function (e) {
 		if (!e.target.closest('.dropdown')) {
 			document.querySelectorAll('.dropdown-menu').forEach(menu => {

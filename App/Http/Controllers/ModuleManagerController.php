@@ -4,6 +4,9 @@ namespace Modules\ModuleManager\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -12,6 +15,25 @@ use Nwidart\Modules\Facades\Module;
 
 class ModuleManagerController extends Controller
 {
+
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index(): Factory|\Illuminate\Foundation\Application|View|Application
+	{
+		$isActive = Module::find('ModuleManager')->isEnabled();
+		$modules = Module::all();
+		return view('modulemanager::index', compact('modules'))->with('isActive', $isActive);
+	}
+
+	/**
+	 * enable
+	 *
+	 * enable module additional changes
+	 *
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
 	public function enable(Request $request): JsonResponse
 	{
 		$moduleName = $request->input('module');
@@ -25,6 +47,14 @@ class ModuleManagerController extends Controller
 		}
 	}
 
+	/**
+	 * disable
+	 *
+	 * disable module additional changes
+	 *
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
 	public function disable(Request $request): JsonResponse
 	{
 		$moduleName = $request->input('module');
@@ -43,6 +73,14 @@ class ModuleManagerController extends Controller
 		}
 	}
 
+	/**
+	 * delete
+	 *
+	 * delete module additional changes
+	 *
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
 	public function delete(Request $request): JsonResponse
 	{
 		$moduleName = $request->input('module');
@@ -68,7 +106,15 @@ class ModuleManagerController extends Controller
 		}
 	}
 
-	protected function deleteDirectory($dir): void
+	/**
+	 * deleteDirectory
+	 *
+	 * deletes directory
+	 *
+	 * @param string $dir
+	 * @return void
+	 */
+	protected function deleteDirectory(string $dir = ''): void
 	{
 		if (!file_exists($dir)) {
 			return;
@@ -84,6 +130,13 @@ class ModuleManagerController extends Controller
 		rmdir($dir);
 	}
 
+	/**
+	 * clearCache
+	 *
+	 * clear cache function
+	 *
+	 * @return void
+	 */
 	public function clearCache(): void
 	{
 		// Clear Cache
