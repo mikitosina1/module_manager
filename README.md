@@ -27,7 +27,7 @@
 ``` 
 
 </li>
-	<li> inside you will find Makefile - you have there 2 options:
+	<li> inside you will find Makefile — you have there 2 options:
 		<ul>
 			<li> If you work on <span style="color:#ADD8E6FF">local</span> with <b>ddev</b>, run <b style="color:#90EE90FF">make setup-ddev</b>  </li>
 			<li> Another case, on <span style="color:#ADD8E6FF">server</span> <b style="color:#90EE90FF">make setup</b> </li>
@@ -36,6 +36,7 @@
 	<li>In case, if something will not work (suppose not, but) Run commands Manually:
 		<ul>
 			<li>Composers command in folder of module </li>
+			<li>run: php artisan module:enable ModuleManager</li>
 			<li>Vite's command in root folder </li>
 		</ul>
 	</li>
