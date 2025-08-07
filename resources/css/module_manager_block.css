@@ -125,19 +125,20 @@ input:checked + .slider:before {
 }
 
 .delete-module {
-	border: 0.5px solid lightgray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 85px;
+	height: 35px;
 	color: lightgray;
+	cursor: pointer;
 	border-radius: 10px;
-	padding: 5px 7px;
-	background: linear-gradient(to right, transparent 50%, #2196F3 50%);
-	background-size: 200% 100%;
-	background-position: left bottom;
-	transition: background-position 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+	border: 0.5px solid lightgray;
 }
 
 .delete-module:hover {
-	background-position: right bottom;
-	cursor: pointer;
+	background-color: #2196F3;
+	color: black;
 }
 
 .dropdown {
@@ -146,23 +147,20 @@ input:checked + .slider:before {
 }
 
 .dropdown-toggle {
-	background-color: transparent;
-	border: 0.5px solid lightgray;
-	color: lightgray;
-	border-radius: 10px;
-	padding: 5px 7px;
-	cursor: pointer;
 	display: flex;
 	align-items: center;
-	gap: 0.5em;
-	background: linear-gradient(to right, transparent 50%, #2196F3 50%);
-	background-size: 200% 100%;
-	background-position: left bottom;
-	transition: background-position 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+	justify-content: center;
+	width: 85px;
+	height: 35px;
+	color: lightgray;
+	cursor: pointer;
+	border-radius: 10px;
+	border: 0.5px solid lightgray;
 }
 
 .dropdown-toggle:hover {
-	background-position: right bottom;
+	background-color: #2196F3;
+	color: black;
 }
 
 .dropdown-icon {
@@ -177,9 +175,8 @@ input:checked + .slider:before {
 	min-width: 160px;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
-	border-radius: 5px;
+	border-radius: 10px;
 	border: 1px solid lightgray;
-	padding: 0.5em 0;
 	left: 0;
 }
 
@@ -197,7 +194,8 @@ input:checked + .slider:before {
 }
 
 .dropdown-item:hover {
-	background-color: #f1f1f1;
+	border-radius: 10px;
+	background-color: #2196F3;
 	color: black;
 }
 

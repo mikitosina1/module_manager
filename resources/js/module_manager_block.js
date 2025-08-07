@@ -50,19 +50,27 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.deleteModule(moduleName);
 		});
 	});
-});
-document.addEventListener('DOMContentLoaded', function () {
-	const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+	const dropdownToggles = $('.dropdown-toggle');
 
 	dropdownToggles.forEach(toggle => {
 		toggle.addEventListener('click', function (e) {
 			e.preventDefault();
 			e.stopPropagation();
-			document.querySelectorAll('.dropdown-menu').forEach(menu => {
-				menu.style.display = 'none';
+
+			const dropdown = this.closest('.dropdown');
+
+			document.querySelectorAll('.dropdown.active').forEach(d => {
+				if (d !== dropdown) {
+					d.classList.remove('active');
+				}
 			});
+
+			dropdown.classList.toggle('active');
 		});
 	});
+
+
 
 	document.addEventListener('click', function (e) {
 		if (!e.target.closest('.dropdown')) {
