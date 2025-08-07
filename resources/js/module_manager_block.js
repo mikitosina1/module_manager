@@ -70,8 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-
-
 	document.addEventListener('click', function (e) {
 		if (!e.target.closest('.dropdown')) {
 			document.querySelectorAll('.dropdown-menu').forEach(menu => {
