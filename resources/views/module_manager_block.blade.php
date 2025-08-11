@@ -12,7 +12,7 @@
 @endforeach
 
 <div class="cloud">
-	<div class="dark:bg-gray-800 shadow sm:rounded-lg mt-8 module-manager-block">
+	<div class="dark:bg-gray-900 shadow sm:rounded-lg mt-8 module-manager-block">
 		<h1 class="dark:text-gray-300 header">@lang('modulemanager::module_manager_lang.manage_modules'):</h1>
 		@if(!empty(isset($modules)))
 			<div class="modules-container">
@@ -21,7 +21,8 @@
 						<div class="module-item">
 							<div class="module-row-main">
 								<h4 class="dark:text-gray-300 module-header"
-									title="{{ $module->getName() }}">{{ $module->getName() }}</h4>
+									title="{{ $module->getName() }}">{{ $module->getName() }}
+								</h4>
 								<label class="switch">
 									<input type="checkbox"
 										   onchange="toggleModule('{{ $module->getName() }}',

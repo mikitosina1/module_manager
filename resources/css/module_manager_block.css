@@ -1,8 +1,15 @@
+.dashboard_carpet {
+	display: flex;
+	width: 100%;
+	padding: 0 18vw 0 13vw;
+}
+
 .module-manager-block {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	border: 1px solid gray;
+	border: 1px solid var(--block-border-color);
+	border-radius: 10px;
 	padding: 1em;
 }
 
@@ -27,7 +34,7 @@ h1.header {
 	display: flex;
 	flex-direction: column;
 	background-color: transparent;
-	border: 1px solid gray;
+	border: 1px solid var(--block-border-color);
 	border-radius: 10px;
 	padding: 1em;
 	gap: 0.5em;
@@ -35,7 +42,7 @@ h1.header {
 }
 
 .dark .module-item {
-	background-color: #1e293b;
+	background-color: var(--block-background-color);
 }
 
 .module-row-main {
@@ -117,7 +124,7 @@ h1.header {
 }
 
 input:checked + .slider {
-	background-color: #2196F3;
+	background-color: var(--link-color);
 }
 
 input:checked + .slider:before {
@@ -130,14 +137,14 @@ input:checked + .slider:before {
 	justify-content: center;
 	width: 85px;
 	height: 35px;
-	color: lightgray;
+	color: var(--main-text-color);
 	cursor: pointer;
 	border-radius: 10px;
-	border: 0.5px solid lightgray;
+	border: 0.5px solid var(--block-border-color);
 }
 
 .delete-module:hover {
-	background-color: #2196F3;
+	background-color: var(--link-color);
 	color: black;
 }
 
@@ -152,14 +159,14 @@ input:checked + .slider:before {
 	justify-content: center;
 	width: 85px;
 	height: 35px;
-	color: lightgray;
+	color: var(--main-text-color);
 	cursor: pointer;
 	border-radius: 10px;
-	border: 0.5px solid lightgray;
+	border: 0.5px solid var(--block-border-color);
 }
 
 .dropdown-toggle:hover {
-	background-color: #2196F3;
+	background-color: var(--link-color);
 	color: black;
 }
 
@@ -171,22 +178,22 @@ input:checked + .slider:before {
 .dropdown-menu {
 	display: none;
 	position: absolute;
-	background-color: #1e293b;
+	background-color: var(--block-background-color);
 	min-width: 160px;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	border-radius: 10px;
-	border: 1px solid lightgray;
+	border: 1px solid var(--block-border-color);
 	left: 0;
 }
 
 .dark .dropdown-menu {
-	background-color: #1e293b;
+	background-color: var(--block-background-color);
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
 }
 
 .dropdown-item {
-	color: lightgray;
+	color: var(--main-text-color);
 	padding: 8px 12px;
 	text-decoration: none;
 	display: block;
@@ -195,12 +202,12 @@ input:checked + .slider:before {
 
 .dropdown-item:hover {
 	border-radius: 10px;
-	background-color: #2196F3;
+	background-color: var(--link-color);
 	color: black;
 }
 
 .dark .dropdown-item:hover {
-	background-color: #2d3748;
+	background-color: var(--block-background-color);
 }
 
 .dropdown:hover .dropdown-menu {
