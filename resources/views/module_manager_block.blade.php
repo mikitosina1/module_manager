@@ -1,10 +1,13 @@
 @php
 	use Nwidart\Modules\Module;
+	use Modules\ModuleManager\App\Services\ModuleAdminActionRegistrar;
 
 	$assets = Module::getAssets();
 	$moduleAssets = array_filter($assets, function ($asset) {
 		return str_contains($asset, 'Modules/ModuleManager');
 	});
+
+	$adminActions = ModuleAdminActionRegistrar::getAllActions();
 @endphp
 
 @foreach ($moduleAssets as $asset)
@@ -32,16 +35,15 @@
 								</label>
 							</div>
 							<div class="module-row-actions">
-								@if(!empty($supportChatAdminActions[$module->getName()]))
+								@if(!empty($adminActions[$module->getName()]))
 									<div class="dropdown">
 										<button class="dropdown-toggle dark:text-gray-300">
-											@lang('modulemanager::module_manager_lang.support_chat_admin_actions')
+											@lang('modulemanager::module_manager_lang.admin_actions')
 										</button>
 										<div class="dropdown-menu">
-											@foreach($supportChatAdminActions[$module->getName()] as $action)
-												<a href="{{ $action['route'] }}"
-												   class="dropdown-item dark:text-gray-300">
-													{{ $action['icon'] }} {{ $action['label'] }}
+											@foreach($adminActions[$module->getName()] as $action)
+												<a href="{{ route($action['route']) }}" class="dropdown-item dark:text-gray-300">
+													{!! $action['icon'] !!} @lang($action['label'])
 												</a>
 											@endforeach
 										</div>

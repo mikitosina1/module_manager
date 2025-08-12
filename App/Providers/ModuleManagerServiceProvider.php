@@ -41,6 +41,9 @@ class ModuleManagerServiceProvider extends ServiceProvider
 
 		if (is_dir($moduleLangPath)) {
 			$this->loadTranslationsFrom($moduleLangPath, $this->moduleNameLower);
+		} else {
+			$this->loadTranslationsFrom(module_path($this->moduleName, 'resources/lang'), $this->moduleNameLower);
+			$this->loadJsonTranslationsFrom(module_path($this->moduleName, 'resources/lang'));
 		}
 	}
 
