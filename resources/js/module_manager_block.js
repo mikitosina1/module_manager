@@ -7,7 +7,6 @@ window.$ = $;
 
 window.toggleModule = function (moduleName, action) {
 	const url = action === 'enable' ? '/admin/module/enable' : '/admin/module/disable';
-
 	fetch(url, {
 		method: 'POST',
 		headers: {
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	const dropdownToggles = $('.dropdown-toggle');
-
 	dropdownToggles.forEach(toggle => {
 		toggle.addEventListener('click', function (e) {
 			e.preventDefault();

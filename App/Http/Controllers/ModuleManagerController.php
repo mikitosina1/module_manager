@@ -74,6 +74,22 @@ class ModuleManagerController extends Controller
 	}
 
 	/**
+	 * clearCache
+	 *
+	 * clear cache function
+	 *
+	 * @return void
+	 */
+	public function clearCache(): void
+	{
+		// Clear Cache
+		Artisan::call('config:clear');
+		Artisan::call('cache:clear');
+		Artisan::call('config:cache');
+		Artisan::call('optimize:clear');
+	}
+
+	/**
 	 * delete
 	 *
 	 * delete module additional changes
@@ -128,22 +144,6 @@ class ModuleManagerController extends Controller
 		}
 
 		rmdir($dir);
-	}
-
-	/**
-	 * clearCache
-	 *
-	 * clear cache function
-	 *
-	 * @return void
-	 */
-	public function clearCache(): void
-	{
-		// Clear Cache
-		Artisan::call('config:clear');
-		Artisan::call('cache:clear');
-		Artisan::call('config:cache');
-		Artisan::call('optimize:clear');
 	}
 
 }

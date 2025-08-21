@@ -42,7 +42,8 @@
 										</button>
 										<div class="dropdown-menu">
 											@foreach($adminActions[$module->getName()] as $action)
-												<a href="{{ route($action['route']) }}" class="dropdown-item dark:text-gray-300">
+												<a href="{{ route($action['route']) }}"
+												   class="dropdown-item dark:text-gray-300">
 													{!! $action['icon'] !!} @lang($action['label'])
 												</a>
 											@endforeach

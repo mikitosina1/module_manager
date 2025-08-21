@@ -25,14 +25,6 @@ class ModuleManagerServiceProvider extends ServiceProvider
 	}
 
 	/**
-	 * Register the service provider.
-	 */
-	public function register(): void
-	{
-		$this->app->register(RouteServiceProvider::class);
-	}
-
-	/**
 	 * Register translations.
 	 */
 	public function registerTranslations(): void
@@ -72,14 +64,6 @@ class ModuleManagerServiceProvider extends ServiceProvider
 		Blade::componentNamespace($componentNamespace, $this->moduleNameLower);
 	}
 
-	/**
-	 * Get the services provided by the provider.
-	 */
-	public function provides(): array
-	{
-		return [];
-	}
-
 	private function getPublishableViewPaths(): array
 	{
 		$paths = [];
@@ -90,5 +74,21 @@ class ModuleManagerServiceProvider extends ServiceProvider
 		}
 
 		return $paths;
+	}
+
+	/**
+	 * Register the service provider.
+	 */
+	public function register(): void
+	{
+		$this->app->register(RouteServiceProvider::class);
+	}
+
+	/**
+	 * Get the services provided by the provider.
+	 */
+	public function provides(): array
+	{
+		return [];
 	}
 }
