@@ -1,16 +1,16 @@
 <?php
 
 /*
-	|--------------------------------------------------------------------------
-	| API Routes
-	|--------------------------------------------------------------------------
-	|
-	| Here is where you can register API routes for your application. These
-	| routes are loaded by the RouteServiceProvider within a group which
-	| is assigned the "api" middleware group. Enjoy building your API!
-	|
+    |--------------------------------------------------------------------------
+    | API Routes
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register API routes for your application. These
+    | routes are loaded by the RouteServiceProvider within a group which
+    | is assigned the "api" middleware group. Enjoy building your API!
+    |
 */
 
-//Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function () {
+// Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function () {
 //    Route::get('modulemanager', fn (Request $request) => $request->user())->name('modulemanager');
-//});
+// });
