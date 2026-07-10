@@ -20,28 +20,29 @@
 		@if(!empty(isset($modules)))
 			<div class="modules-container">
 				@foreach($modules as $module)
-					@if($module->getName() != 'ModuleManager')
+                    @php($moduleName = $module->getName())
+					@if($moduleName != 'ModuleManager')
 						<div class="module-item">
 							<div class="module-row-main">
 								<h4 class="dark:text-gray-300 module-header"
-									title="{{ $module->getName() }}">{{ $module->getName() }}
+									title="{{ $moduleName }}">{{ $moduleName }}
 								</h4>
 								<label class="switch">
 									<input type="checkbox"
-										   onchange="toggleModule('{{ $module->getName() }}',
+										   onchange="toggleModule('{{ $moduleName }}',
 										   this.checked ? 'enable' : 'disable')"
 										{{ $module->isEnabled() ? 'checked' : '' }}>
 									<span class="slider"></span>
 								</label>
 							</div>
 							<div class="module-row-actions">
-								@if(!empty($adminActions[$module->getName()]))
+								@if(!empty($adminActions[$moduleName]))
 									<div class="dropdown">
 										<button class="dropdown-toggle dark:text-gray-300">
 											@lang('modulemanager::module_manager_lang.admin_actions')
 										</button>
 										<div class="dropdown-menu">
-											@foreach($adminActions[$module->getName()] as $action)
+											@foreach($adminActions[$moduleName] as $action)
 												<a href="{{ route($action['route']) }}"
 												   class="dropdown-item dark:text-gray-300">
 													{!! $action['icon'] !!} @lang($action['label'])
@@ -51,7 +52,7 @@
 									</div>
 								@endif
 								<a href="javascript:void(0);" class="delete-module dark:text-gray-300"
-								   data-module-name="{{ $module->getName() }}">
+								   data-module-name="{{ $moduleName }}">
 									@lang('modulemanager::module_manager_lang.delete_module_btn')
 								</a>
 							</div>
