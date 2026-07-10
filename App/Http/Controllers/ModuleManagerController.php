@@ -20,10 +20,10 @@ class ModuleManagerController extends Controller
      */
     public function index(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        $isActive = Module::find('ModuleManager')->isEnabled();
+        $enabled = Module::find('ModuleManager')->isEnabled();
         $modules = Module::all();
 
-        return view('modulemanager::index', compact('modules'))->with('isActive', $isActive);
+        return view('modulemanager::index', compact('modules'))->with('enabled', $enabled);
     }
 
     /**
