@@ -40,7 +40,7 @@ class ModuleController extends Controller
         $module = $action->execute($request->moduleName());
 
         return response()->json([
-            'message' => __('modulemanager::module_manager_lang.module_enabled', [
+            'message' => __('modulemanager::module_manager_lang.module_disabled', [
                 'module' => $module['name'],
             ]),
             'data' => new ModuleResource($module),
