@@ -47,4 +47,14 @@ class ModuleAdminActionRegistrar
     {
         return self::$actions;
     }
+
+    /**
+     * Return registered action buttons for module.
+     * @param string $moduleName
+     * @return array
+     */
+    public static function getActions(string $moduleName): array
+    {
+        return self::$actions[$moduleName] ?? [];
+    }
 }

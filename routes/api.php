@@ -1,5 +1,7 @@
 <?php
 
+use Modules\ModuleManager\App\Http\Controllers\Api\V1\Admin\ModuleController;
+
 /*
     |--------------------------------------------------------------------------
     | API Routes
@@ -11,6 +13,19 @@
     |
 */
 
-// Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function () {
-//    Route::get('modulemanager', fn (Request $request) => $request->user())->name('modulemanager');
-// });
+Route::prefix('v1/admin/modules')
+    ->middleware(['auth:sanctum', 'is_admin'])
+    ->name('api.v1.admin.modules.')
+    ->group(function () {
+        Route::get('/', [ModuleController::class, 'index'])
+            ->name('index');
+
+        Route::post('/{module}/enable', [ModuleController::class, 'enable'])
+            ->name('enable');
+
+        Route::post('/{module}/disable', [ModuleController::class, 'disable'])
+            ->name('disable');
+
+        Route::delete('/{module}', [ModuleController::class, 'destroy'])
+            ->name('destroy');
+    });
