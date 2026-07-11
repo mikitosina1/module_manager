@@ -57,8 +57,6 @@ class ModuleManagerService
         $this->filesystem->deleteModuleDirectory($module->getPath());
 
         $this->cache->clear();
-
-        $this->filesystem->dumpAutoload();
     }
 
     private function findOrFail(string $moduleName): LaravelModule
