@@ -12,4 +12,5 @@ return [
     'module_deleted' => 'Модуль :module удалён.',
     'delete_module_btn' => 'Удалить',
     'admin_actions' => 'Действия',
+    'widget_title' => 'Менеджер модулей',
 ];

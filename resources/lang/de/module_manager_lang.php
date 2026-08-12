@@ -12,4 +12,5 @@ return [
     'module_deleted' => 'Das Modul :module gelöscht.',
     'delete_module_btn' => 'Löschen',
     'admin_actions' => 'Aktivitäten',
+    'widget_title' => 'Module Manager',
 ];

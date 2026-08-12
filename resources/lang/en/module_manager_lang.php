@@ -12,4 +12,5 @@ return [
     'module_deleted' => 'Module :module deleted.',
     'delete_module_btn' => 'Delete',
     'admin_actions' => 'Actions',
+    'widget_title' => 'Module Manager',
 ];
