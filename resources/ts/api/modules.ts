@@ -1,4 +1,4 @@
-import type { Module } from '../types/Module';
+import type {Module} from '../types/Module';
 
 import tr from '@/services/TranslationService';
 

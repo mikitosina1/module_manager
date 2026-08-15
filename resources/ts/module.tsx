@@ -1,15 +1,15 @@
-import type { RouteObject } from 'react-router-dom';
-import type { MenuItem } from '@/types/Menu';
-import type { ReactModule } from '@/types/Module';
+import type {RouteObject} from 'react-router-dom';
+import type {MenuItem} from '@/types/Menu';
+import type {ReactModule} from '@/types/Module';
 
-import { PuzzleIcon } from 'lucide-react';
+import {PuzzleIcon} from 'lucide-react';
 
 import ModuleManagerPage from './pages/ModuleManager/ModuleManagerPage';
 
 const routes: RouteObject[] = [
     {
         path: 'module-manager',
-        element: <ModuleManagerPage />,
+        element: <ModuleManagerPage/>,
         handle: {
             breadcrumb: 'modulemanager.widget_title',
         },

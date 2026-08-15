@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
-import { getModules } from '../../api/modules';
+import {getModules} from '../../api/modules';
 import ModuleCard from '../../components/ModuleCard';
-import type { Module } from '../../types/Module';
+import type {Module} from '../../types/Module';
 
 import tr from '@/services/TranslationService';
 
