@@ -4,12 +4,15 @@ import type { ReactModule } from '@/types/Module';
 
 import { PuzzleIcon } from 'lucide-react';
 
-import DashboardPage from './pages/Dashboard/DashboardPage';
+import ModuleManagerPage from './pages/ModuleManager/ModuleManagerPage';
 
 const routes: RouteObject[] = [
     {
         path: 'module-manager',
-        element: <DashboardPage />,
+        element: <ModuleManagerPage />,
+        handle: {
+            breadcrumb: 'modulemanager.widget_title',
+        },
     },
 ];
 
@@ -22,6 +25,7 @@ const navigation: MenuItem[] = [
         order: 100,
         active: true,
         icon: 'modulemanager:puzzle',
+        roles: ['admin'],
     },
 ];
 
