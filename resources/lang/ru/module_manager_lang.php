@@ -13,4 +13,7 @@ return [
     'delete_module_btn' => 'Удалить',
     'admin_actions' => 'Действия',
     'widget_title' => 'Менеджер модулей',
+    'loading' => 'Загрузка модулей...',
+    'load_error' => 'Не удалось загрузить модули.',
+    'settings' => 'Управление',
 ];

@@ -13,4 +13,7 @@ return [
     'delete_module_btn' => 'Delete',
     'admin_actions' => 'Actions',
     'widget_title' => 'Module Manager',
+    'loading' => 'Loading modules...',
+    'load_error' => 'Failed to load modules.',
+    'settings' => 'Settings',
 ];
