@@ -4,10 +4,10 @@ namespace Modules\ModuleManager\App\Actions\Admin;
 
 use Modules\ModuleManager\App\Services\ModuleManagerService;
 
-class DisableModuleAction
+readonly class DisableModuleAction
 {
     public function __construct(
-        private readonly ModuleManagerService $modules
+        private ModuleManagerService $modules
     ) {}
 
     public function execute(string $moduleName): array

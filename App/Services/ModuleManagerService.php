@@ -7,7 +7,7 @@ use Nwidart\Modules\Laravel\Module as LaravelModule;
 
 class ModuleManagerService
 {
-    private const PROTECTED_MODULES = [
+    private const array PROTECTED_MODULES = [
         'ModuleManager',
     ];
 
@@ -19,6 +19,7 @@ class ModuleManagerService
     {
         return collect(Module::all())
             ->map(fn ($module) => [
+                'id' => $module->get('id'),
                 'name' => $module->getName(),
                 'alias' => $module->get('alias'),
                 'enabled' => $module->isEnabled(),
@@ -42,6 +43,8 @@ class ModuleManagerService
 
     public function disable(string $moduleName): array
     {
+        $this->ensureNotProtected($moduleName);
+
         $module = $this->findOrFail($moduleName);
         $module->disable();
 
@@ -75,6 +78,7 @@ class ModuleManagerService
     private function toArray(LaravelModule $module): array
     {
         return [
+            'id' => $module->get('id'),
             'name' => $module->getName(),
             'alias' => $module->get('alias'),
             'enabled' => $module->isEnabled(),

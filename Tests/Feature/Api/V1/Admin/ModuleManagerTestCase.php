@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class ModuleManagerTestCase extends TestCase
 {
-    protected const MODULES_BASE_URL = '/api/v1/admin/modules/';
+    protected const string MODULES_BASE_URL = '/api/v1/admin/modules/';
 
     public function test_user_can_not_acting_with_modules_settings(): void
     {

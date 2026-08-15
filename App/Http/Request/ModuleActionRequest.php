@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ModuleActionRequest extends FormRequest
 {
-    private const ROUTE_MODULE = 'module';
+    private const string ROUTE_MODULE = 'module';
 
     public function authorize(): bool
     {
