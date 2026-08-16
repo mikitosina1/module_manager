@@ -1,19 +1,32 @@
 <?php
 
 return [
-    'subm' => 'Update',
-    'success' => 'Updated successfully',
-    'manage_modules' => 'Module management',
-    'module_enabled' => 'Module :module has been enabled.',
-    'module_not_found' => 'Module :module not found.',
-    'module_disabled' => 'Module :module was disabled.',
-    'module_cant_disabled' => 'Module :module can\'t be disabled.',
-    'problem_delete_module' => 'Module :module can\'t be deleted.',
-    'module_deleted' => 'Module :module deleted.',
-    'delete_module_btn' => 'Delete',
-    'admin_actions' => 'Actions',
+    'manage_modules' => 'Module Management',
     'widget_title' => 'Module Manager',
+    'settings' => 'Management',
+
+    'submit' => 'Submit',
+    'success' => 'Updated successfully',
+
+    'module_enable' => 'Apply',
+    'module_enabled' => 'Module applied successfully.',
+    'module_enable_error' => 'Failed to enable modules.',
+
+    'module_disable' => 'Disable',
+    'module_disabled' => 'Module disabled successfully.',
+    'module_cant_disabled' => 'The module cannot be disabled.',
+    'module_disable_error' => 'Failed to disable modules.',
+
+    'module_delete_btn' => 'Delete',
+    'module_deleted' => 'Module deleted successfully.',
+    'module_delete_problem' => 'The module cannot be deleted.',
+
+    'admin_actions' => 'Actions',
+    'access' => 'Access',
+    'access_description' => 'Access description',
+
+    'module_not_found' => 'Module not found or an error occurred.',
     'loading' => 'Loading modules...',
     'load_error' => 'Failed to load modules.',
-    'settings' => 'Settings',
+    'action_error' => 'Failed to do action.',
 ];

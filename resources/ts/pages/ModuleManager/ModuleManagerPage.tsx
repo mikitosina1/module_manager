@@ -1,6 +1,10 @@
 import {useEffect, useState} from 'react';
 
-import {getModules} from '../../api/modules';
+import {
+    getModules,
+    enableModule,
+    disableModule,
+} from '../../api/modules';
 import ModuleCard from '../../components/ModuleCard';
 import type {Module} from '../../types/Module';
 
@@ -10,6 +14,7 @@ export default function ModuleManagerPage() {
     const [modules, setModules] = useState<Record<string, Module>>({});
     const [loading, setLoading] = useState(true);
     const [errorKey, setErrorKey] = useState<string | null>(null);
+    const [processingModule, setProcessingModule] = useState<string | null>(null);
 
     useEffect(() => {
         getModules()
@@ -21,6 +26,25 @@ export default function ModuleManagerPage() {
                 setLoading(false);
             });
     }, []);
+
+    const handleToggle = async (module: Module) => {
+        setProcessingModule(module.id);
+
+        try {
+            const updatedModule = module.enabled
+                ? await disableModule(module.name)
+                : await enableModule(module.name);
+
+            setModules((current) => ({
+                ...current,
+                [module.alias]: updatedModule,
+            }));
+        } catch {
+            setErrorKey('modulemanager.action_error');
+        } finally {
+            setProcessingModule(null);
+        }
+    };
 
     if (loading) {
         return (
@@ -45,6 +69,8 @@ export default function ModuleManagerPage() {
                     <ModuleCard
                         key={module.id}
                         module={module}
+                        onToggle={handleToggle}
+                        disabled={processingModule === module.id}
                     />
                 ))}
             </div>

@@ -5,13 +5,21 @@ import type {ReactModule} from '@/types/Module';
 import {PuzzleIcon} from 'lucide-react';
 
 import ModuleManagerPage from './pages/ModuleManager/ModuleManagerPage';
+import ModuleSettingsPage from './pages/ModuleManager/ModuleSettingsPage';
 
 const routes: RouteObject[] = [
     {
         path: 'module-manager',
         element: <ModuleManagerPage/>,
         handle: {
-            breadcrumb: 'modulemanager.widget_title',
+            title: 'modulemanager.widget_title',
+        },
+    },
+    {
+        path: 'module-manager/modules/:module',
+        element: <ModuleSettingsPage />,
+        handle: {
+            title: 'modulemanager.settings',
         },
     },
 ];
