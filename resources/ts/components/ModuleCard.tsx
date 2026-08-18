@@ -8,12 +8,14 @@ import tr from '@/services/TranslationService';
 interface ModuleCardProps {
     module: Module;
     onToggle: (module: Module) => void;
+    onDelete: (module: Module) => void;
     disabled?: boolean;
 }
 
 export default function ModuleCard({
                                        module,
                                        onToggle,
+                                       onDelete,
                                        disabled = false,
                                    }: ModuleCardProps) {
     const [open, setOpen] = useState(false);
@@ -94,7 +96,12 @@ export default function ModuleCard({
 
                             <button
                                 type="button"
-                                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
+                                disabled={disabled}
+                                onClick={() => {
+                                    setOpen(false);
+                                    onDelete(module);
+                                }}
+                                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-red-400 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 <Trash2 size={16} />
 

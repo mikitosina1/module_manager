@@ -1,49 +1,31 @@
 import type {Module} from '../types/Module';
 
 import api from '@/services/ApiClient';
-import tr from '@/services/TranslationService';
-
-interface ModulesResponse {
-    data: Record<string, Module>;
-}
-
-interface ModuleResponse {
-    message: string;
-    data: Module;
-}
 
 export async function getModules(): Promise<Record<string, Module>> {
-    try {
-        const response = await api.get<ModulesResponse>(
-            '/api/v1/admin/modules',
-        );
+    const response = await api.get('/api/v1/admin/modules');
 
-        return response.data.data;
-    } catch {
-        throw new Error(tr.t('modulemanager.load_error'));
-    }
+    return response.data.data;
 }
 
 export async function enableModule(moduleName: string): Promise<Module> {
-    try {
-        const response = await api.post<ModuleResponse>(
-            `/api/v1/admin/modules/${encodeURIComponent(moduleName)}/enable`,
-        );
+    const response = await api.post(
+        `/api/v1/admin/modules/${encodeURIComponent(moduleName)}/enable`,
+    );
 
-        return response.data.data;
-    } catch {
-        throw new Error(tr.t('modulemanager.module_enable_error'));
-    }
+    return response.data.data;
 }
 
 export async function disableModule(moduleName: string): Promise<Module> {
-    try {
-        const response = await api.post<ModuleResponse>(
-            `/api/v1/admin/modules/${encodeURIComponent(moduleName)}/disable`,
-        );
+    const response = await api.post(
+        `/api/v1/admin/modules/${encodeURIComponent(moduleName)}/disable`,
+    );
 
-        return response.data.data;
-    } catch {
-        throw new Error(tr.t('modulemanager.module_disable_error'));
-    }
+    return response.data.data;
+}
+
+export async function deleteModule(moduleName: string): Promise<void> {
+    await api.delete(
+        `/api/v1/admin/modules/${encodeURIComponent(moduleName)}`,
+    );
 }

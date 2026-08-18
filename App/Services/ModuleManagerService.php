@@ -13,8 +13,8 @@ class ModuleManagerService
 
     public function __construct(
         private readonly ModuleCacheService $cache,
-        private readonly ModuleFilesystemService $filesystem,
     ) {}
+
     public function list(): array
     {
         return collect(Module::all())
@@ -57,7 +57,7 @@ class ModuleManagerService
 
         $module = $this->findOrFail($moduleName);
 
-        $this->filesystem->deleteModuleDirectory($module->getPath());
+        $module->delete();
 
         $this->cache->clear();
     }

@@ -19,7 +19,7 @@ return [
 
     'module_delete_btn' => 'Удалить',
     'module_deleted' => 'Модуль удалён.',
-    'module_delete_problem' => 'Модуль не может быть удалён.',
+    'module_delete_error' => 'Модуль не может быть удалён.',
 
     'admin_actions' => 'Действия',
     'access' => 'Доступ',

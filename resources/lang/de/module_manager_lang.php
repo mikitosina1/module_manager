@@ -19,7 +19,7 @@ return [
 
     'module_delete_btn' => 'Löschen',
     'module_deleted' => 'Modul erfolgreich gelöscht.',
-    'module_delete_problem' => 'Das Modul kann nicht gelöscht werden.',
+    'module_delete_error' => 'Das Modul kann nicht gelöscht werden.',
 
     'admin_actions' => 'Aktionen',
     'access' => 'Zugang',

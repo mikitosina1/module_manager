@@ -4,6 +4,7 @@ import {
     getModules,
     enableModule,
     disableModule,
+    deleteModule
 } from '../../api/modules';
 import ModuleCard from '../../components/ModuleCard';
 import type {Module} from '../../types/Module';
@@ -46,6 +47,36 @@ export default function ModuleManagerPage() {
         }
     };
 
+    const handleDelete = async (module: Module) => {
+        const confirmed = window.confirm(
+            tr.t('modulemanager.delete_confirm', {
+                module: module.name,
+            }),
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        setProcessingModule(module.id);
+
+        try {
+            await deleteModule(module.name);
+
+            setModules((current) => {
+                const updated = {...current};
+
+                delete updated[module.alias];
+
+                return updated;
+            });
+        } catch {
+            setErrorKey('modulemanager.module_delete_error');
+        } finally {
+            setProcessingModule(null);
+        }
+    };
+
     if (loading) {
         return (
             <div>
@@ -64,12 +95,13 @@ export default function ModuleManagerPage() {
 
     return (
         <section className="space-y-8">
-            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
                 {Object.values(modules).map((module) => (
                     <ModuleCard
                         key={module.id}
                         module={module}
                         onToggle={handleToggle}
+                        onDelete={handleDelete}
                         disabled={processingModule === module.id}
                     />
                 ))}
