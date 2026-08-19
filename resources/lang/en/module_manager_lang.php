@@ -24,6 +24,8 @@ return [
     'admin_actions' => 'Actions',
     'access' => 'Access',
     'access_description' => 'Access description',
+    'access_role_description_main' => 'Wichtigste Zugangsregeln',
+    'access_updated' => 'Access rules updated',
 
     'module_not_found' => 'Module not found or an error occurred.',
     'loading' => 'Loading modules...',

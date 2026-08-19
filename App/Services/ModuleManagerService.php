@@ -2,6 +2,7 @@
 
 namespace Modules\ModuleManager\App\Services;
 
+use App\Models\Role;
 use Nwidart\Modules\Facades\Module;
 use Nwidart\Modules\Laravel\Module as LaravelModule;
 
@@ -12,7 +13,8 @@ class ModuleManagerService
     ];
 
     public function __construct(
-        private readonly ModuleCacheService $cache,
+        private readonly ModuleCacheService    $cache,
+        private readonly ModuleSettingsService $settings,
     ) {}
 
     public function list(): array
@@ -60,6 +62,50 @@ class ModuleManagerService
         $module->delete();
 
         $this->cache->clear();
+    }
+
+    public function setAccess(
+        string $moduleName,
+        array $permissions
+    ): void {
+        $module = $this->findOrFail($moduleName);
+
+        $moduleId = $module->get('id');
+
+        $settings = $this->settings->get($moduleId);
+        $current = $settings->getSettings();
+
+        $current['permissions'] = $permissions;
+
+        $this->settings->update($moduleId, $current);
+    }
+
+    public function getSettings(string $moduleName): array
+    {
+        $module = $this->findOrFail($moduleName);
+
+        $settings = $this->settings->get(
+            $module->get('id')
+        );
+
+        return [
+            'module' => [
+                'id' => $module->get('id'),
+                'name' => $module->getName(),
+                'alias' => $module->get('alias'),
+            ],
+            'roles' => Role::query()
+                ->select(['id', 'title'])
+                ->get()
+                ->map(fn (Role $role) => [
+                    'id' => $role->id,
+                    'name' => $role->title,
+                    'access' => $settings->getSettings()['permissions'][$role->id]['access'] ?? false,
+                ])
+                ->values()
+                ->all(),
+            'settings' => $settings->getSettings(),
+        ];
     }
 
     private function findOrFail(string $moduleName): LaravelModule

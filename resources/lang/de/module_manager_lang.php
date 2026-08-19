@@ -24,6 +24,8 @@ return [
     'admin_actions' => 'Aktionen',
     'access' => 'Zugang',
     'access_description' => 'Beschreibung des Zugangs',
+    'access_role_description_main' => 'Haupt',
+    'access_updated' => 'Zugang wurde aktualisiert.',
 
     'module_not_found' => 'Modul nicht gefunden oder ein Fehler ist aufgetreten.',
     'loading' => 'Module werden geladen...',

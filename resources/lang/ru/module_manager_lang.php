@@ -24,6 +24,8 @@ return [
     'admin_actions' => 'Действия',
     'access' => 'Доступ',
     'access_description' => 'Описание доступа',
+    'access_role_description_main' => 'Основные правила пользования',
+    'access_updated' => 'Правила доступа обновлены',
 
     'module_not_found' => 'Модуль не найден или произошла ошибка.',
     'loading' => 'Загрузка модулей...',
