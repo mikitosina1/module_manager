@@ -1,11 +1,9 @@
 import api from '@/services/ApiClient';
 
-import tr from '@/services/TranslationService';
-
 export interface ModuleRole {
     id: number;
     name: string;
-    access: boolean;
+    permissions: Record<string, boolean>;
 }
 
 export interface ModuleSettingsResponse {
@@ -14,15 +12,8 @@ export interface ModuleSettingsResponse {
         name: string;
         alias: string;
     };
+    permissions: string[];
     roles: ModuleRole[];
-    settings: {
-        permissions?: Record<
-            string,
-            {
-                access?: boolean;
-            }
-        >;
-    };
 }
 
 interface Response {
@@ -36,16 +27,12 @@ export async function getModuleSettings(
         `/api/v1/admin/modules/${encodeURIComponent(module)}/settings`,
     );
 
-    if (response.status < 200 || response.status >= 300) {
-        throw new Error(tr.t('modulemanager.settings_load_error'));
-    }
-
     return response.data.data;
 }
 
-export async function setModuleAccess(
+export async function setModulePermissions(
     module: string,
-    permissions: Record<string, {access: boolean}>,
+    permissions: Record<string, Record<string, boolean>>,
 ): Promise<void> {
     await api.put(
         `/api/v1/admin/modules/${encodeURIComponent(module)}/settings/access`,

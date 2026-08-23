@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 
 import {
     getModuleSettings,
-    setModuleAccess,
+    setModulePermissions,
     type ModuleRole,
 } from '../../api/moduleSettings';
 
@@ -12,6 +12,7 @@ import tr from '@/services/TranslationService';
 export default function ModuleSettingsPage() {
     const {module} = useParams<{module: string}>();
 
+    const [permissions, setPermissions] = useState<string[]>([]);
     const [roles, setRoles] = useState<ModuleRole[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -24,6 +25,7 @@ export default function ModuleSettingsPage() {
 
         getModuleSettings(module)
             .then((settings) => {
+                setPermissions(settings.permissions);
                 setRoles(settings.roles);
             })
             .catch(() => {
@@ -34,12 +36,22 @@ export default function ModuleSettingsPage() {
             });
     }, [module]);
 
-    const toggleRole = (roleId: number) => {
+    const togglePermission = (
+        roleId: number,
+        permission: string,
+    ) => {
         setRoles((current) =>
             current.map((role) =>
-                role.id === roleId
-                    ? {...role, access: !role.access}
-                    : role,
+                role.id !== roleId
+                    ? role
+                    : {
+                        ...role,
+                        permissions: {
+                            ...role.permissions,
+                            [permission]:
+                                !role.permissions[permission],
+                        },
+                    },
             ),
         );
     };
@@ -53,16 +65,17 @@ export default function ModuleSettingsPage() {
         setErrorKey(null);
 
         try {
-            const permissions = Object.fromEntries(
+            const permissionSettings = Object.fromEntries(
                 roles.map((role) => [
                     role.id,
-                    {
-                        access: role.access,
-                    },
+                    role.permissions,
                 ]),
             );
 
-            await setModuleAccess(module, permissions);
+            await setModulePermissions(
+                module,
+                permissionSettings,
+            );
         } catch {
             setErrorKey('modulemanager.access_update_error');
         } finally {
@@ -98,7 +111,7 @@ export default function ModuleSettingsPage() {
                 </p>
             </div>
 
-            <section className="rounded-2xl border border-slate-700 bg-slate-900/70 shadow-lg">
+            <section className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-900/70 shadow-lg">
                 <div className="border-b border-slate-800 px-6 py-5">
                     <h2 className="text-lg font-medium text-white">
                         {tr.t('modulemanager.access')}
@@ -109,43 +122,78 @@ export default function ModuleSettingsPage() {
                     </p>
                 </div>
 
-                <div className="divide-y divide-slate-800">
-                    {roles.map((role) => (
-                        <div
-                            key={role.id}
-                            className="flex items-center justify-between px-6 py-4"
-                        >
-                            <div>
-                                <p className="text-sm font-medium text-slate-200">
-                                    {role.name}
-                                </p>
-                            </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full min-w-max">
+                        <thead>
+                        <tr className="border-b border-slate-800">
+                            <th className="px-6 py-4 text-left text-sm font-medium text-slate-300">
+                                Role
+                            </th>
 
-                            <button
-                                type="button"
-                                role="switch"
-                                aria-checked={role.access}
-                                disabled={saving}
-                                onClick={() => toggleRole(role.id)}
-                                className={[
-                                    'relative h-6 w-11 rounded-full transition',
-                                    role.access
-                                        ? 'bg-emerald-500'
-                                        : 'bg-slate-700',
-                                    'disabled:cursor-not-allowed disabled:opacity-50',
-                                ].join(' ')}
-                            >
-                                <span
-                                    className={[
-                                        'absolute top-1 h-4 w-4 rounded-full bg-white shadow transition',
-                                        role.access
-                                            ? 'right-1'
-                                            : 'left-1',
-                                    ].join(' ')}
-                                />
-                            </button>
-                        </div>
-                    ))}
+                            {permissions.map((permission) => (
+                                <th
+                                    key={permission}
+                                    className="px-6 py-4 text-center text-sm font-medium text-slate-300"
+                                >
+                                    {permission}
+                                </th>
+                            ))}
+                        </tr>
+                        </thead>
+
+                        <tbody className="divide-y divide-slate-800">
+                        {roles.map((role) => (
+                            <tr key={role.id}>
+                                <td className="px-6 py-4">
+                                        <span className="text-sm font-medium text-slate-200">
+                                            {role.name}
+                                        </span>
+                                </td>
+
+                                {permissions.map((permission) => {
+                                    const enabled =
+                                        role.permissions[permission] ?? false;
+
+                                    return (
+                                        <td
+                                            key={permission}
+                                            className="px-6 py-4 text-center"
+                                        >
+                                            <button
+                                                type="button"
+                                                role="switch"
+                                                aria-checked={enabled}
+                                                disabled={saving}
+                                                onClick={() =>
+                                                    togglePermission(
+                                                        role.id,
+                                                        permission,
+                                                    )
+                                                }
+                                                className={[
+                                                    'relative h-6 w-11 rounded-full transition',
+                                                    enabled
+                                                        ? 'bg-emerald-500'
+                                                        : 'bg-slate-700',
+                                                    'disabled:cursor-not-allowed disabled:opacity-50',
+                                                ].join(' ')}
+                                            >
+                                                    <span
+                                                        className={[
+                                                            'absolute top-1 h-4 w-4 rounded-full bg-white shadow transition',
+                                                            enabled
+                                                                ? 'right-1'
+                                                                : 'left-1',
+                                                        ].join(' ')}
+                                                    />
+                                            </button>
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 <div className="flex justify-end border-t border-slate-800 px-6 py-4">

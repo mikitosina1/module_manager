@@ -19,9 +19,20 @@ class ModuleManagerServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/migrations'));
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', $this->moduleNameLower);
-        Blade::component('modulemanager::components.module-blocks', 'module-blocks');
+
+        $this->loadMigrationsFrom(
+            module_path($this->moduleName, 'Database/migrations')
+        );
+
+        $this->loadViewsFrom(
+            __DIR__.'/../../resources/views',
+            $this->moduleNameLower
+        );
+
+        Blade::component(
+            'modulemanager::components.module-blocks',
+            'module-blocks'
+        );
     }
 
     /**

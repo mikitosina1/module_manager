@@ -13,8 +13,9 @@ class ModuleManagerService
     ];
 
     public function __construct(
-        private readonly ModuleCacheService    $cache,
-        private readonly ModuleSettingsService $settings,
+        private readonly ModuleCacheService      $cache,
+        private readonly ModuleSettingsService   $settings,
+        private readonly ModulePermissionService $permissions,
     ) {}
 
     public function list(): array
@@ -72,20 +73,40 @@ class ModuleManagerService
 
         $moduleId = $module->get('id');
 
+        $availablePermissions = $this->permissions->get(
+            $module->getName()
+        );
+
+        $normalizedPermissions = [];
+
+        foreach ($permissions as $roleId => $rolePermissions) {
+            foreach ($availablePermissions as $permission) {
+                $normalizedPermissions[$roleId][$permission] =
+                    (bool) ($rolePermissions[$permission] ?? false);
+            }
+        }
+
         $settings = $this->settings->get($moduleId);
         $current = $settings->getSettings();
 
-        $current['permissions'] = $permissions;
+        $current['permissions'] = $normalizedPermissions;
 
         $this->settings->update($moduleId, $current);
     }
 
-    public function getSettings(string $moduleName): array
-    {
+    public function getSettings(
+        string $moduleName
+    ): array {
         $module = $this->findOrFail($moduleName);
 
         $settings = $this->settings->get(
             $module->get('id')
+        );
+
+        $storedPermissions = $settings->getSettings()['permissions'] ?? [];
+
+        $availablePermissions = $this->permissions->get(
+            $module->getName()
         );
 
         return [
@@ -94,22 +115,36 @@ class ModuleManagerService
                 'name' => $module->getName(),
                 'alias' => $module->get('alias'),
             ],
+
+            'permissions' => $availablePermissions,
+
             'roles' => Role::query()
                 ->select(['id', 'title'])
                 ->get()
-                ->map(fn (Role $role) => [
-                    'id' => $role->id,
-                    'name' => $role->title,
-                    'access' => $settings->getSettings()['permissions'][$role->id]['access'] ?? false,
-                ])
+                ->map(function (Role $role) use (
+                    $storedPermissions,
+                    $availablePermissions
+                ) {
+                    $rolePermissions = $storedPermissions[$role->id] ?? [];
+
+                    return [
+                        'id' => $role->id,
+                        'name' => $role->title,
+                        'permissions' => collect($availablePermissions)
+                            ->mapWithKeys(fn (string $permission) => [
+                                $permission => $rolePermissions[$permission] ?? false,
+                            ])
+                            ->all(),
+                    ];
+                })
                 ->values()
                 ->all(),
-            'settings' => $settings->getSettings(),
         ];
     }
 
-    private function findOrFail(string $moduleName): LaravelModule
-    {
+    private function findOrFail(
+        string $moduleName
+    ): LaravelModule {
         $module = Module::find($moduleName);
 
         if (! $module) {
@@ -121,8 +156,9 @@ class ModuleManagerService
         return $module;
     }
 
-    private function toArray(LaravelModule $module): array
-    {
+    private function toArray(
+        LaravelModule $module
+    ): array {
         return [
             'id' => $module->get('id'),
             'name' => $module->getName(),
@@ -135,8 +171,9 @@ class ModuleManagerService
         ];
     }
 
-    private function ensureNotProtected(string $moduleName): void
-    {
+    private function ensureNotProtected(
+        string $moduleName
+    ): void {
         if (in_array($moduleName, self::PROTECTED_MODULES, true)) {
             abort(403, __('modulemanager::module_manager_lang.module_cant_disabled', [
                 'module' => $moduleName,

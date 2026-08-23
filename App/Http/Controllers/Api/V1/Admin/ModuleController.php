@@ -9,10 +9,10 @@ use Modules\ModuleManager\App\Actions\Admin\DeleteModuleAction;
 use Modules\ModuleManager\App\Actions\Admin\DisableModuleAction;
 use Modules\ModuleManager\App\Actions\Admin\EnableModuleAction;
 use Modules\ModuleManager\App\Actions\Admin\GetModuleSettingsAction;
-use Modules\ModuleManager\App\Actions\Admin\SetModuleAccessAction;
+use Modules\ModuleManager\App\Actions\Admin\SetModulePermissionsAction;
 use Modules\ModuleManager\App\Http\Requests\ModuleActionRequest;
 use Modules\ModuleManager\App\Http\Requests\ModuleSettingsRequest;
-use Modules\ModuleManager\App\Http\Requests\SetModuleAccessRequest;
+use Modules\ModuleManager\App\Http\Requests\SetModulePermissionsRequest;
 use Modules\ModuleManager\App\Http\Resources\Admin\ModuleResource;
 use Modules\ModuleManager\App\Services\ModuleManagerService;
 use Nwidart\Modules\Laravel\Module;
@@ -79,8 +79,8 @@ class ModuleController extends Controller
     }
 
     public function setAccess(
-        SetModuleAccessRequest $request,
-        SetModuleAccessAction $action
+        SetModulePermissionsRequest $request,
+        SetModulePermissionsAction $action
     ): JsonResponse {
         $action->execute(
             $request->moduleName(),

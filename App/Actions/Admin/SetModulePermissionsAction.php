@@ -4,7 +4,7 @@ namespace Modules\ModuleManager\App\Actions\Admin;
 
 use Modules\ModuleManager\App\Services\ModuleManagerService;
 
-readonly class SetModuleAccessAction
+readonly class SetModulePermissionsAction
 {
     public function __construct(
         private ModuleManagerService $modules

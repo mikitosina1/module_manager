@@ -4,7 +4,7 @@ namespace Modules\ModuleManager\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SetModuleAccessRequest extends FormRequest
+class SetModulePermissionsRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,7 +16,7 @@ class SetModuleAccessRequest extends FormRequest
         return [
             'permissions' => ['required', 'array'],
             'permissions.*' => ['required', 'array'],
-            'permissions.*.access' => ['required', 'boolean'],
+            'permissions.*.*' => ['required', 'boolean'],
         ];
     }
 
