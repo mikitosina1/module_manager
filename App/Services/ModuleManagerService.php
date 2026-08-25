@@ -71,7 +71,7 @@ class ModuleManagerService
     ): void {
         $module = $this->findOrFail($moduleName);
 
-        $moduleId = $module->get('id');
+        $moduleId = $module->get('id') ?? $module->getLowerName();
 
         $availablePermissions = $this->permissions->get(
             $module->getName()
@@ -100,7 +100,7 @@ class ModuleManagerService
         $module = $this->findOrFail($moduleName);
 
         $settings = $this->settings->get(
-            $module->get('id')
+            $module->get('id') ?? $module->getLowerName()
         );
 
         $storedPermissions = $settings->getSettings()['permissions'] ?? [];
@@ -111,7 +111,7 @@ class ModuleManagerService
 
         return [
             'module' => [
-                'id' => $module->get('id'),
+                'id' => $module->get('id') ?? $module->getLowerName(),
                 'name' => $module->getName(),
                 'alias' => $module->get('alias'),
             ],
@@ -160,7 +160,7 @@ class ModuleManagerService
         LaravelModule $module
     ): array {
         return [
-            'id' => $module->get('id'),
+            'id' => $module->get('id') ?? $module->getLowerName(),
             'name' => $module->getName(),
             'alias' => $module->get('alias'),
             'enabled' => $module->isEnabled(),

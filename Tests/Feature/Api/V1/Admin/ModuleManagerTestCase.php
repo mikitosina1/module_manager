@@ -4,13 +4,16 @@ namespace Modules\ModuleManager\Tests\Feature\Api\V1\Admin;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Sanctum\Sanctum;
+use Modules\ModuleManager\App\Models\ModuleSettings;
 use Nwidart\Modules\Facades\Module;
 use Tests\TestCase;
 
 class ModuleManagerTestCase extends TestCase
 {
+    use RefreshDatabase;
     protected const string MODULES_BASE_URL = '/api/v1/admin/modules/';
 
     public function test_user_can_not_acting_with_modules_settings(): void
@@ -22,6 +25,21 @@ class ModuleManagerTestCase extends TestCase
         $this->post(static::MODULES_BASE_URL.'TestModule123/enable')->assertForbidden();
         $this->post(static::MODULES_BASE_URL.'TestModule123/disable')->assertForbidden();
         $this->delete(static::MODULES_BASE_URL.'TestModule123')->assertForbidden();
+
+        $this->get(
+            static::MODULES_BASE_URL.'TestModule123/settings'
+        )->assertForbidden();
+
+        $this->put(
+            static::MODULES_BASE_URL.'TestModule123/settings/access',
+            [
+                'permissions' => [
+                    '1' => [
+                        'access' => true,
+                    ],
+                ],
+            ]
+        )->assertForbidden();
     }
 
     public function test_admin_can_get_modules_list()
@@ -150,6 +168,28 @@ class ModuleManagerTestCase extends TestCase
         Artisan::call('module:make', [
             'name' => ['TestModule123'],
         ]);
+
+        ModuleSettings::create([
+            'module_id' => 'test-module-123',
+            'settings' => [
+                'permissions' => [
+                    '1' => [
+                        'access' => true,
+                        'view' => true,
+                        'create' => true,
+                        'update' => true,
+                        'delete' => true,
+                    ],
+                    '2' => [
+                        'access' => false,
+                        'view' => false,
+                        'create' => false,
+                        'update' => false,
+                        'delete' => false,
+                    ],
+                ],
+            ],
+        ]);
     }
 
     protected function tearDown(): void
@@ -161,5 +201,73 @@ class ModuleManagerTestCase extends TestCase
         }
 
         parent::tearDown();
+    }
+
+    public function test_admin_can_get_module_settings(): void
+    {
+        $this->actingAsAdmin();
+
+        $response = $this->get(
+            static::MODULES_BASE_URL.'ModuleManager/settings'
+        );
+
+        $response
+            ->assertOk()
+            ->assertJsonStructure([
+                'data' => [
+                    'module' => [
+                        'id',
+                        'name',
+                        'alias',
+                    ],
+                    'permissions',
+                    'roles' => [
+                        '*' => [
+                            'id',
+                            'name',
+                            'permissions',
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    public function test_admin_can_update_module_permissions(): void
+    {
+        $this->actingAsAdmin();
+
+        $permissions = [
+            '1' => [
+                'access' => true,
+                'view' => true,
+                'create' => true,
+                'update' => false,
+                'delete' => false,
+            ],
+            '2' => [
+                'access' => false,
+                'view' => true,
+                'create' => false,
+                'update' => false,
+                'delete' => false,
+            ],
+        ];
+
+        $this->put(
+            static::MODULES_BASE_URL.'ModuleManager/settings/access',
+            ['permissions' => $permissions]
+        )->assertOk();
+
+        $response = $this->get(
+            static::MODULES_BASE_URL.'ModuleManager/settings'
+        );
+
+        $response->assertOk();
+
+        $roles = $response->json('data.roles');
+
+        $this->assertSame(true, $roles[0]['permissions']['access']);
+        $this->assertSame(true, $roles[0]['permissions']['view']);
+        $this->assertSame(false, $roles[0]['permissions']['update']);
     }
 }
