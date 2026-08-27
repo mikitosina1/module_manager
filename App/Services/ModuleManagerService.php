@@ -3,6 +3,9 @@
 namespace Modules\ModuleManager\App\Services;
 
 use App\Models\Role;
+use App\Services\ModulePermissionService;
+use App\Services\ModuleSettingsInitializer;
+use App\Services\ModuleSettingsService;
 use Nwidart\Modules\Facades\Module;
 use Nwidart\Modules\Laravel\Module as LaravelModule;
 
@@ -15,6 +18,7 @@ class ModuleManagerService
     public function __construct(
         private readonly ModuleCacheService      $cache,
         private readonly ModuleSettingsService   $settings,
+        private readonly ModuleSettingsInitializer $initializer,
         private readonly ModulePermissionService $permissions,
     ) {}
 
@@ -71,7 +75,8 @@ class ModuleManagerService
     ): void {
         $module = $this->findOrFail($moduleName);
 
-        $moduleId = $module->get('id') ?? $module->getLowerName();
+        $moduleId = $this->moduleId($module);
+        $this->initializer->initialize($module->getName(), $moduleId);
 
         $availablePermissions = $this->permissions->get(
             $module->getName()
@@ -98,10 +103,11 @@ class ModuleManagerService
         string $moduleName
     ): array {
         $module = $this->findOrFail($moduleName);
+        $moduleId = $this->moduleId($module);
 
-        $settings = $this->settings->get(
-            $module->get('id') ?? $module->getLowerName()
-        );
+        $this->initializer->initialize($module->getName(), $moduleId);
+
+        $settings = $this->settings->get($moduleId);
 
         $storedPermissions = $settings->getSettings()['permissions'] ?? [];
 
@@ -111,7 +117,7 @@ class ModuleManagerService
 
         return [
             'module' => [
-                'id' => $module->get('id') ?? $module->getLowerName(),
+                'id' => $moduleId,
                 'name' => $module->getName(),
                 'alias' => $module->get('alias'),
             ],
@@ -140,6 +146,11 @@ class ModuleManagerService
                 ->values()
                 ->all(),
         ];
+    }
+
+    private function moduleId(LaravelModule $module): string
+    {
+        return $module->get('id') ?? $module->getLowerName();
     }
 
     private function findOrFail(

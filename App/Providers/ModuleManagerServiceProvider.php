@@ -2,6 +2,7 @@
 
 namespace Modules\ModuleManager\App\Providers;
 
+use App\Services\ModuleSettingsInitializer;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,6 +34,9 @@ class ModuleManagerServiceProvider extends ServiceProvider
             'modulemanager::components.module-blocks',
             'module-blocks'
         );
+
+        $this->app->make(ModuleSettingsInitializer::class)
+            ->initialize($this->moduleName, 'module-manager');
     }
 
     /**

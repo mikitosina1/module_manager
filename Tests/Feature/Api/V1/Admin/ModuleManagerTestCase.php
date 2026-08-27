@@ -2,12 +2,12 @@
 
 namespace Modules\ModuleManager\Tests\Feature\Api\V1\Admin;
 
+use App\Models\ModuleSettings;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Sanctum\Sanctum;
-use Modules\ModuleManager\App\Models\ModuleSettings;
 use Nwidart\Modules\Facades\Module;
 use Tests\TestCase;
 
