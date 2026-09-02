@@ -31,7 +31,6 @@ const navigation: MenuItem[] = [
         route: '/module-manager',
         section: 'modules',
         order: 100,
-        active: true,
         icon: 'modulemanager:puzzle',
         roles: ['admin'],
     },
