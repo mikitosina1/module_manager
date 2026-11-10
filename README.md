@@ -27,7 +27,7 @@
 ``` 
 
 </li>
-	<li> inside you will find Makefile — you have there 2 options:
+	<li> inside you will find Makefile - you have there 2 options:
 		<ul>
 			<li> If you work on <span style="color:#ADD8E6FF">local</span> with <b>ddev</b>, run <b style="color:#90EE90FF">make setup-ddev</b>  </li>
 			<li> Another case, on <span style="color:#ADD8E6FF">server</span> <b style="color:#90EE90FF">make setup</b> </li>
